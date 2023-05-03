@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\API\V1\AddressBookController;
+use App\Http\Controllers\API\V1\Auth\AuthenticationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +16,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group(['prefix' => 'v1/'], function () {
+    Route::post('/login', [AuthenticationController::class, 'login'])->name('login');
+
+    Route::group(['middleware' => 'auth:api'], function () {
+        Route::group(['prefix' => 'address-books'], function () {
+
+            Route::get('/',[AddressBookController::class,'index']);
+            Route::post('/',[AddressBookController::class,'store']);
+            Route::put('/{addressBook}',[AddressBookController::class,'update']);
+            Route::get('/{addressBook}',[AddressBookController::class,'edit']);
+            Route::delete('/{addressBook}',[AddressBookController::class,'destroy']);
+        });
+    });
 });
