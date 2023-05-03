@@ -1,0 +1,6 @@
+grumphp:
+  process_timeout: 120
+  tasks:
+    phpcsfixer2:
+      allow_risky: true
+      config: '.php_cs.dist.php'
