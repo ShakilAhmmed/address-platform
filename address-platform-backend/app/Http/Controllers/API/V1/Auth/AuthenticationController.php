@@ -52,9 +52,15 @@ class AuthenticationController extends Controller
                 'data' => auth()->user(),
                 'access_token' => $token,
                 'token_type' => 'bearer',
-                'expires_in' => Token::TOKEN_TTL_DAYS->value * Token::MINUTES_PER_DAY->value
+                'expires_in_days' => Token::TOKEN_TTL_DAYS->value
             ])
-            ->withCookie(Authentication::ACCESS_TOKEN->value, $token, Token::TOKEN_TTL_DAYS->value * Token::MINUTES_PER_DAY->value)
-            ->withCookie(Authentication::REFRESH_TOKEN->value, $token, Token::REFRESH_TOKEN_TTL_DAYS->value * Token::MINUTES_PER_DAY->value);
+            ->withCookie(cookie(name: Authentication::ACCESS_TOKEN->value, value: $token, minutes: Token::TOKEN_TTL_DAYS->value * Token::MINUTES_PER_DAY->value))
+            ->withCookie(cookie(name: Authentication::REFRESH_TOKEN->value, value: $token, minutes: Token::REFRESH_TOKEN_TTL_DAYS->value * Token::MINUTES_PER_DAY->value));
+    }
+
+    public function logout()
+    {
+        auth()->user()->token()->revoke();
+        return $this->successResponse([], 'logged out successfully');
     }
 }
