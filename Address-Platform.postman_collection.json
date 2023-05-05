@@ -1,0 +1,284 @@
+{
+	"info": {
+		"_postman_id": "12ba2434-8407-4d2a-8789-40dcaba866dc",
+		"name": "Address-Platform",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "4570847"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"stefan.pfeffer@example.net\",\n    \"password\" : 123456\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{APP_URL}}/login",
+							"host": [
+								"{{APP_URL}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Get Address Books",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{AUTH_TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{APP_URL}}/address-books?name=Shakil",
+					"host": [
+						"{{APP_URL}}"
+					],
+					"path": [
+						"address-books"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Shakil"
+						},
+						{
+							"key": "email",
+							"value": "shakilfci4611@gmail.com",
+							"disabled": true
+						},
+						{
+							"key": "phone",
+							"value": null,
+							"disabled": true
+						},
+						{
+							"key": "nationality",
+							"value": null,
+							"disabled": true
+						},
+						{
+							"key": "gender",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Save Address Book",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{AUTH_TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Shakil Ahmmed\",\n    \"phone\": \"+8801849942053\",\n    \"email\": \"shakilfci461134@gmail.com\",\n    \"website\": \"http://abc.com\",\n    \"gender\": \"male\",\n    \"age\": 24,\n    \"nationality\": \"Bangladeshi\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{APP_URL}}/address-books",
+					"host": [
+						"{{APP_URL}}"
+					],
+					"path": [
+						"address-books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Address Book",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{AUTH_TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Shakil\",\n    \"phone\": \"+8801849942053\",\n    \"email\": \"shakilfci4611@gmail.com\",\n    \"website\": \"http://abc.com\",\n    \"gender\": \"male\",\n    \"age\": 25,\n    \"nationality\": \"Bangladeshi\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{APP_URL}}/address-books/2",
+					"host": [
+						"{{APP_URL}}"
+					],
+					"path": [
+						"address-books",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Single Address Book",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{AUTH_TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{APP_URL}}/address-books/2",
+					"host": [
+						"{{APP_URL}}"
+					],
+					"path": [
+						"address-books",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Address Book",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{AUTH_TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{APP_URL}}/address-books/1",
+					"host": [
+						"{{APP_URL}}"
+					],
+					"path": [
+						"address-books",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
