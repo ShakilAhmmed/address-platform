@@ -1,13 +1,12 @@
-import {Button, Col, Form, FormGroup, Input, Label, ModalBody, ModalFooter, ModalHeader, Row} from "reactstrap";
+import {Button, Col, Form, FormGroup, Label, ModalBody, ModalFooter, ModalHeader, Row} from "reactstrap";
 import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup"
 import AddressBookSchema from "../../SchemaValidation/AddressBookSchema";
 import postAddressBookAction from "../../Actions/addressBook/postAddressBookAction";
 import {toast} from "react-toastify";
-import {errorDispatch, errorValidationDispatch} from "../../Redux/Dispatch/commons/errorDispatch";
 import {useDispatch} from "react-redux";
 
-const AddressBookForm = ({toggle}) => {
+const AddressBookForm = ({toggle,getAddressBooks}) => {
 
     const dispatch = useDispatch();
 
@@ -17,19 +16,27 @@ const AddressBookForm = ({toggle}) => {
         </button>
     );
 
-    const {register, handleSubmit, formState: {errors}} = useForm({
+    const {register, handleSubmit, setError, formState: {errors}} = useForm({
         mode: "onChange",
         resolver: yupResolver(AddressBookSchema)
     });
     const onSubmit = (data) => {
         postAddressBookAction(data)
             .then((response) => {
-                toast("Address Added Successfully.")
+                toast.success("Address Added Successfully.");
+                toggle();
+                getAddressBooks();
             })
             .catch((error) => {
-                toast.error(error?.message);
+                if (error.errors) {
+                    Object.keys(error.errors).forEach((e) => {
+                        setError(e, {type: 'custom', message: error.errors[e]})
+                    })
+
+                }
             })
-    }
+    };
+
     return (
         <>
             <ModalHeader toggle={toggle} close={closeBtn}>Add New Address</ModalHeader>
@@ -100,7 +107,7 @@ const AddressBookForm = ({toggle}) => {
                                 >
                                     <option value="male">Male</option>
                                     <option value="female">Female</option>
-                                    <option value="others">Others</option>
+                                    <option value="other">Other</option>
                                 </select>
                                 <span className="text-danger">{errors?.gender?.message}</span>
                             </FormGroup>

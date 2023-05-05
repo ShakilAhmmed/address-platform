@@ -21,6 +21,7 @@ class AddressBookController extends Controller
     {
         try {
             $addressBooks = AddressBook::query()
+                ->with('createdBy:id,name')
                 ->filter($request, new AddressBookFilter())
                 ->paginate();
             return $this->successResponse(
